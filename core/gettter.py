@@ -5,7 +5,7 @@ from jinja2 import Template
 import pdfkit
 import platform
 
-def writeChapter(links:list, title:str, img:str):
+def write_chapter(links:list, title:str, img:str):
 
     def getSiteChapter(link):
         href = link['href']
@@ -69,7 +69,15 @@ def writeChapter(links:list, title:str, img:str):
             '--image-quality': 100
         })
 
-    startHtml = f'<html><head><meta http-equiv="Content-type" content="text/html; charset=utf-8"/></head><body><img src="{img}" alt="main-picture" class="cover">'
+    startHtml = f'''
+
+        <html>
+        <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/></head>
+        <body>
+        <img src="{img}" alt="main-picture" class="cover">
+    
+    '''
    
     for link in links:
         site = getSiteChapter(link)

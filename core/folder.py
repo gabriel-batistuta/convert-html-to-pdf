@@ -1,6 +1,6 @@
 import os
 
-def makeFolder(_title):
+def make_folder(_title):
     if os.path.isdir('./books'):
         pass
     else:

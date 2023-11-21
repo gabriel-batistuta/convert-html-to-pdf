@@ -1,6 +1,6 @@
-def writeHeader(site, title):
+def write_header(site, title):
 
-    def getHeader(site):
+    def get_header(site):
         div = site.find('div', attrs={'class': 'header-widget'})
         blog = div.find('a', attrs={'href': 'https://highschooldxdfc.blogspot.com/'})
 
@@ -10,7 +10,7 @@ def writeHeader(site, title):
 
         return blog, aboutBlog, blogLink
     
-    def filterToStringFormat(header):
+    def filter_to_string_format(header):
         return header.text.strip()
     
     blog, aboutBlog, blogLink = getHeader(site)
