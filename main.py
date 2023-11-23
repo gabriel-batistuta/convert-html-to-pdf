@@ -1,12 +1,20 @@
 import core
 
-# livro King Mombo do site 'gutenberg.org'
-DOMAIN_URL = 'https://openlibrary.org/works/OL3036163W/A_life_of_William_Shakespeare'
+# livro Great Expectations do site 'gutenberg.org'
 
-book = 'https://archive.org/details/lifeofwilliamsha0000adam_x5z2/page/14/mode/2up?ref=ol&view=theater'
+book = 'https://www.gutenberg.org/cache/epub/1400/pg1400-images.html'
 
 source_html = core.get_source_html_from_url(book)
+# source_html = source_html.find('')
 print(source_html.prettify())
 
-with open('.html', 'w') as file:
+with open('book.html', 'w') as file:
     file.write(source_html.prettify())
+
+def main(source_html):
+    _title = core.get_title(source_html)
+    core.make_folder(_title)
+
+
+if __name__ == '__main__':
+    main(source_html)
