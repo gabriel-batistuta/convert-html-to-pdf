@@ -1,19 +1,18 @@
-def write_header(site, title):
+def get_header(source_html):
 
-    def get_header(site):
-        div = site.find('div', attrs={'class': 'header-widget'})
-        blog = div.find('a', attrs={'href': 'https://highschooldxdfc.blogspot.com/'})
-
-        blogLink = blog['href']
-
-        aboutBlog = div.find('p')
-
-        return blog, aboutBlog, blogLink
+        header_tag_container = source_html.find('section', attrs={'id': 'pg-header'})
+        
+        print(header_tag_container.text.strip())
+        
+        with open('.html', 'w') as file:
+            file.write(header_tag_container.prettify())
+        
+def write_header(source_html, title):
     
     def filter_to_string_format(header):
         return header.text.strip()
     
-    blog, aboutBlog, blogLink = getHeader(site)
+    blog, aboutBlog, blogLink = getHeader(source_html)
     blog = filterToStringFormat(blog)
     aboutBlog = filterToStringFormat(aboutBlog)
  

@@ -1,6 +1,6 @@
 import os
 
-def make_folder(_title):
+def make_book_folder(_title):
     if os.path.isdir('./books'):
         pass
     else:
@@ -11,14 +11,8 @@ def make_folder(_title):
     else:
         os.mkdir(f'./books/{_title}')
 
-# def removeTemplates(title):
-#     path=f'./novels/{title}'
-#     for file in os.listdir(path):
-#         if '.html' in file:
-#             os.remove(os.path.join(path, file))
-
-# def removeNoMainPdfs(title):
-#     path=f'./novels/{title}'
-#     for file in os.listdir(path):
-#         if '.pdf' in file and file != f'{title}.pdf':
-#             os.remove(os.path.join(path, file))
+def remove_general_book_folder(_title):
+    if os.path.isdir('./books'):
+        os.remove('./books')
+    else:
+        os.mkdir('./books')

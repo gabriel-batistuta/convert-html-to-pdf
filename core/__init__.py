@@ -1,7 +1,7 @@
 from .chapters import get_links
-from .folder import make_folder
+from .folder import make_book_folder, remove_general_book_folder
 from .gettter import write_chapter
-from .header import write_header
+from .header import write_header, get_header
 from .image import download_image, get_image_url
 from .sumary import write_sumary
 from .title import get_title

@@ -13,8 +13,9 @@ with open('book.html', 'w') as file:
 
 def main(source_html):
     _title = core.get_title(source_html)
-    core.make_folder(_title)
-
+    core.make_book_folder(_title)
+    header = core.get_header()
+    core.remove_general_book_folder()
 
 if __name__ == '__main__':
     main(source_html)
