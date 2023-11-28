@@ -1,6 +1,6 @@
 __pycache__/
-test.py
-*.html
-*.json
-*.pdf
 books/
+test.py
+*.jpg
+*.html
+*.pdf

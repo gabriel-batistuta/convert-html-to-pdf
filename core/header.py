@@ -1,20 +1,7 @@
-def get_header(source_html):
+def write_header(source_html, title):    
+    header_tag = source_html.find('section', attrs={'id':'pg-header'})
 
-        header_tag_container = source_html.find('section', attrs={'id': 'pg-header'})
-        
-        print(header_tag_container.text.strip())
-        
-        with open('.html', 'w') as file:
-            file.write(header_tag_container.prettify())
-        
-def write_header(source_html, title):
-    
-    def filter_to_string_format(header):
-        return header.text.strip()
-    
-    blog, aboutBlog, blogLink = getHeader(source_html)
-    blog = filterToStringFormat(blog)
-    aboutBlog = filterToStringFormat(aboutBlog)
- 
-    with open(f'novels/{title}/README.txt', 'w') as file:
-        file.write(f'{blog}\n{aboutBlog}\n{blogLink}')
+    with open(f'books/{title}/README.txt', 'w') as file_header:
+        text = header_tag.text
+        text = text.replace('*** START OF THE PROJECT GUTENBERG EBOOK GREAT EXPECTATIONS ***','')
+        file_header.write(header_tag.text)
