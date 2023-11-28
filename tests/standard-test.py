@@ -1,4 +1,5 @@
 import utils
+import re
 
 def test_standart_title_in_books():
     # esta função percorre uma lista de links até encontrar a página do livro em si e pegar o texto da tag de titulo para comparar os padrões do texto 
@@ -59,5 +60,24 @@ def test_standart_title_in_books():
 
     return books_titles
 
+def get_title(books_titles):
+
+    print('-----Titles Organized-----')
+    for book_title in books_titles:
+        # Expressão regular para extrair o título do livro
+        pattern = re.compile(r"The Project Gutenberg eBook of (.+?)(?:,| \|)?(?: by|$)")
+
+        # Iterar sobre as strings e imprimir os títulos
+        
+        match = pattern.search(book_title)
+        if match:
+            title = match.group(1).strip()
+            print(title)
+            
+        else:
+            print(f'padrão de titulo desconhecido: {book_title} | {__name__}')
+
+
 if __name__ == '__main__':
-    test_standart_title_in_books()
+    books_titles = test_standart_title_in_books()
+    get_title(books_titles)

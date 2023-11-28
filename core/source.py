@@ -21,9 +21,9 @@ def get_domain(url):
     domain_path = string_list[0]
     domain_path += '/'
 
-    # nome do arquivo html do livro
-    # string_list[1]
+    # nome do arquivo html do livro:
+    html_filename = string_list[1]
+    # Ex: 'pg1400-images.html'
     
     return domain_path
 
-get_domain('https://www.gutenberg.org/cache/epub/1400/pg1400-images.html')
