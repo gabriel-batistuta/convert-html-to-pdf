@@ -6,14 +6,6 @@ from bs4 import BeautifulSoup
 
 def create_pdf(source_html, domain, title):
 
-    def write_domain_in_image_link(source_html:BeautifulSoup, domain:str):
-        padrao_href_src = re.compile(r'(src)="([^"]+)"')
-
-        # Substituir texto entre aspas de atributos href e src pelo domínio + texto original
-        web_page_string = padrao_href_src.sub(fr'\1="{domain}\2"', str(source_html))
-        
-        return web_page_string
-    
     def remove_minimize_image(source_html:BeautifulSoup):
         pattern = re.compile(r'<img[^>]*?src="images/enlarge\.jpg"[^>]*?>')
 
@@ -25,12 +17,22 @@ def create_pdf(source_html, domain, title):
     def remove_site_header_and_footer(source_html:BeautifulSoup):
         header_tag = source_html.find('section', attrs={'id':'pg-header'})
         footer_tag = source_html.find('section', attrs={'id':'pg-footer'})
-        
+        # retirando cabeçalho e footer da página
         source_html = str(source_html).replace(str(header_tag), '').replace(str(footer_tag), '')
 
         return source_html
 
+    def write_domain_in_image_link(source_html:BeautifulSoup, domain:str):
+        padrao_href_src = re.compile(r'(src)="([^"]+)"')
+
+        # Substituir texto entre aspas de atributos href e src pelo domínio + texto original
+        web_page_string = padrao_href_src.sub(fr'\1="{domain}\2"', str(source_html))
+        
+        return web_page_string
+    
     def convert_to_pdf(web_page_string:str):
+        cssPath = './template/styles.css'
+
         if platform.system() == 'Windows':
             path_wkhtmltopdf = os.popen('where wkhtmltopdf').read() 
         else:
@@ -38,9 +40,9 @@ def create_pdf(source_html, domain, title):
 
         config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
             
-        pdfkit.from_string(web_page_string, f'./books/{title}/{title}.pdf', configuration=config, options={
+        pdfkit.from_string(web_page_string, f'./books/{title}/{title}.pdf', configuration=config, css=cssPath, options={
             'enable-local-file-access': None, 
-            'encoding': 'UTF-8',
+            'encoding':'UTF-8', 
             '--image-quality': 100
         })
 
