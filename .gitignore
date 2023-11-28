@@ -1,0 +1,6 @@
+__pycache__/
+books/
+test.py
+*.jpg
+*.html
+*.pdf
