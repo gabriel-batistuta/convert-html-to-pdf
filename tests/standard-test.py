@@ -45,7 +45,10 @@ def test_standart_title_in_books():
         for book_link in books_links:
             book_page = utils.get_source_html_from_url(book_link)
             try:
+                # pega o titulo na tag <title>
                 title = book_page.title.text.strip()
+                # pega o titulo na tag <h1>
+                title = book_page.find('h1').text.strip().replace('\n','  ').replace('  ', ' ')
                 books_titles.append(title)
             except:
                 print(book_page.title)

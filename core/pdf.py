@@ -31,8 +31,6 @@ def create_pdf(source_html, domain, title):
         return web_page_string
     
     def convert_to_pdf(web_page_string:str):
-        cssPath = './template/styles.css'
-
         if platform.system() == 'Windows':
             path_wkhtmltopdf = os.popen('where wkhtmltopdf').read() 
         else:
@@ -40,7 +38,7 @@ def create_pdf(source_html, domain, title):
 
         config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
             
-        pdfkit.from_string(web_page_string, f'./books/{title}/{title}.pdf', configuration=config, css=cssPath, options={
+        pdfkit.from_string(web_page_string, f'./books/{title}/{title}.pdf', configuration=config, options={
             'enable-local-file-access': None, 
             'encoding':'UTF-8', 
             '--image-quality': 100
