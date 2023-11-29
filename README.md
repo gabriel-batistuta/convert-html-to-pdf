@@ -26,6 +26,7 @@ python -u main.py | python3 -u main.py
 - Repositório no launchpad - *https://code.launchpad.net/beautifulsoup*
 - Documentação Oficial em Português - *https://www.crummy.com/software/BeautifulSoup/bs4/doc.ptbr/*
 - biblioteca no PyPI - *https://pypi.org/project/beautifulsoup4/*
+- tutorial no medium - *https://medium.com/horadecodar/como-fazer-webscraping-com-python-e-beautiful-soup-28a65eee2efd*
 ## pdfkit
 - Repositório no Github - *https://github.com/JazzCore/python-pdfkit*
 - biblioteca no PyPI - *https://pypi.org/project/pdfkit/*
