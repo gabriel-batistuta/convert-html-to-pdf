@@ -1,8 +1,11 @@
 import requests
+from bs4 import BeautifulSoup
+import re
 
 def write_image(file_path, image_link):
      
-    # pega o contéudo da imagem e escreve seus binários em um arquivo jpg criado
+    # pega o contéudo da imagem 
+    # escreve seus binários em um arquivo jpg criado
     with open(file_path, 'wb') as file:
         data = requests.get(image_link)
         file.write(data.content)
@@ -11,7 +14,17 @@ def write_image(file_path, image_link):
 def get_images_url(source_html):
     image_links = []
 
+    def remove_min_img_and_return_bs4(source_html:BeautifulSoup):
+        pattern = re.compile(r'<img[^>]*?src="images/enlarge\.jpg"[^>]*?>')
+
+        # Substituir as correspondências pela string vazia (remover as tags)
+        source_html_string = re.sub(pattern, '', str(source_html))
+
+        return BeautifulSoup(source_html_string, 'html.parser')
+
+    source_html = remove_min_img_and_return_bs4(source_html)
     imgs_tags = source_html.find_all('img')
+
     # livro não tem imagem nenhuma
     if len(imgs_tags) == 0:
         return {
@@ -28,7 +41,8 @@ def get_images_url(source_html):
         }
     # livro tem capa e outras imagens
     else:
-        # retira a primeira imagem(capa do livro) da lista e passa para outra variavel
+        # retira a primeira imagem(capa do livro) da lista
+        # e passa para outra variavel
         cover_tag = imgs_tags.pop(0)
         cover_link = cover_tag['src']
         # filtra os links das tags em outra lista

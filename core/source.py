@@ -1,10 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
-import re
 
 def get_source_html_from_url(url):
 
-    response = requests.get(url, stream=True)
+    response = requests.get(url)
     content = response.content
     source_html = BeautifulSoup(content, 'html.parser')
 
@@ -12,18 +11,14 @@ def get_source_html_from_url(url):
 
 def get_domain(url):
 
-    # divisão de string em 2 pela ultima '/'
-    regex = r'/([^/]+)$'
-    string_list = re.split(regex, url)
-    
-    # pegando a primeira parte da divisão de string
-    # Ex: 'https://www.gutenberg.org/cache/epub/1400/'
-    domain_path = string_list[0]
-    domain_path += '/'
+    path_separated = url.split('/')
+    # ['https:', '', 'www.gutenberg.org', 'cache', 'epub', '1400', 'pg1400-images.html']
 
-    # nome do arquivo html do livro:
-    html_filename = string_list[1]
-    # Ex: 'pg1400-images.html'
+    path_separated[-1] = ''
+    # ['https:', '', 'www.gutenberg.org', 'cache', 'epub', '1400', '']
+
+    domain_path = '/'.join(path_separated)
+    # https://www.gutenberg.org/cache/epub/1400/
     
     return domain_path
 
