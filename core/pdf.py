@@ -25,7 +25,7 @@ def create_pdf(source_html, domain, title):
     def write_domain_in_image_link(source_html:BeautifulSoup, domain:str):
         padrao_href_src = re.compile(r'(src)="([^"]+)"')
 
-        # Substituir texto entre aspas de atributos href e src pelo domínio + texto original
+        # Substituir texto entre aspas de atributos src pelo domínio + texto original
         web_page_string = padrao_href_src.sub(fr'\1="{domain}\2"', str(source_html))
         
         return web_page_string
@@ -35,7 +35,7 @@ def create_pdf(source_html, domain, title):
         def get_wkhtmltopdf_config():
             if platform.system() == 'Windows': 
                 try:
-                    path_wkhtmltopdf = os.popen('which wkhtmltopdf').read()
+                    path_wkhtmltopdf = os.popen('where wkhtmltopdf').read()
                     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
                 except:
                     path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
@@ -45,12 +45,17 @@ def create_pdf(source_html, domain, title):
                     path_wkhtmltopdf = os.popen('which wkhtmltopdf').read()
                     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
                 except:
-                    path_wkhtmltopdf = '/usr/local/bin/wkhtmltopdf'
-                    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
-            
+                    try:
+                        path_wkhtmltopdf = '/usr/local/bin/wkhtmltopdf'
+                        config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+                    except:
+                        path_wkhtmltopdf = '/Applications/wkhtmltopdf.app/Contents/MacOS/wkhtmltopdf'
+                        config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+
             return config
             
-        pdfkit.from_string(web_page_string, f'./books/{title}/{title}.pdf', configuration=get_wkhtmltopdf_config(), options={
+        pdfkit.from_string(web_page_string, f'./books/{title}/{title}.pdf', 
+        configuration=get_wkhtmltopdf_config(), options={
             'enable-local-file-access': None, 
             'encoding':'UTF-8', 
             '--image-quality': 100
